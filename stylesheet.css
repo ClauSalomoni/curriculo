@@ -1,0 +1,236 @@
+/* ==========================================================================
+   1. RESET & VARIÁVEIS DE DESIGN
+   ========================================================================== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg-page: #020617;          /* Fundo geral escuro e elegante */
+  --bg-card: #0f172a;          /* Slate escuro sofisticado */
+  --border-card: #1e293b;      /* Borda discreta */
+  --border-accent: #d97706;    /* Tom dourado/âmbar para destaque */
+  --text-main: #f8fafc;        /* Texto principal (alto contraste WCAG AAA) */
+  --text-muted: #94a3b8;       /* Texto secundário */
+  --shadow-color: rgba(0, 0, 0, 0.4);
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 16px;
+}
+
+/* ==========================================================================
+   2. CABEÇALHO DA PÁGINA
+   ========================================================================== */
+.header-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;       /* Centraliza a imagem verticalmente com o texto */
+  text-align: center;
+  margin-bottom: 32px;
+  width: 100%;
+}
+/* Primeira Linha (Foto + Nome) */
+.header-top {
+  display: flex;
+  align-items: center;       /* Alinha a imagem na altura média do nome */
+  justify-content: center;   /* Centraliza o conjunto foto+nome na tela */
+  gap: 16px;                 /* Espaço entre a foto e o nome */
+  margin-bottom: 8px;        /* Espaço para a descrição abaixo */
+}
+
+.header-profile h1 {
+  font-size: 2.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+}
+
+.header-profile p {
+  color: var(--border-accent);
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.profile-pic {
+  width: 90px;               /* Tamanho ideal para ficar proporcional ao nome */
+  height: 90px;
+  border-radius: 50%;        /* Deixa a imagem redonda */
+  object-fit: cover;         /* Garante que a foto não fique esticada */
+  border: 2px solid var(--border-accent); /* Borda dourada do seu tema */
+  flex-shrink: 0;            /* Impede que a foto amasse em telas menores */
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+/* ==========================================================================
+   3. CONTAINER GRID & CARDS (MOBILE-FIRST BASE)
+   ========================================================================== */
+.grid-container {
+  display: grid;
+  width: 100%;
+  max-width: 1100px;
+  gap: 20px;
+  grid-template-columns: 1fr; /* 1 coluna no celular */
+}
+
+.grid-item {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-left: 4px solid var(--border-accent);
+  border-radius: 12px;
+  padding: 28px;
+  box-shadow: 0 10px 25px -5px var(--shadow-color);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.grid-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.6);
+  border-color: #334155;
+}
+
+.grid-item h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin-bottom: 12px;
+}
+
+.grid-item p, 
+.grid-item ul {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.grid-item ul {
+  list-style-position: inside;
+  margin-top: 8px;
+}
+
+.grid-item li {
+  margin-bottom: 4px;
+}
+
+/* ==========================================================================
+   4. LINKS E BOTÕES DOS PROJETOS
+   ========================================================================== */
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.btn-project {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  outline: none;
+}
+
+.btn-project.primary {
+  background-color: var(--border-accent);
+  color: #020617;
+  border: 1px solid var(--border-accent);
+}
+
+.btn-project.primary:hover,
+.btn-project.primary:focus-visible {
+  background-color: #f59e0b;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3);
+}
+
+.btn-project.secondary {
+  background-color: transparent;
+  color: var(--text-main);
+  border: 1px solid var(--border-card);
+}
+
+.btn-project.secondary:hover,
+.btn-project.secondary:focus-visible {
+  background-color: var(--border-card);
+  color: var(--border-accent);
+  border-color: #334155;
+  transform: translateY(-2px);
+}
+
+.btn-project:focus-visible {
+  outline: 2px solid var(--border-accent);
+  outline-offset: 2px;
+}
+
+/* Container de links empilhados (uma linha por item, mesmo tamanho) */
+.contact-links {
+  display: flex;
+  flex-direction: column; /* Força os itens a ficarem um abaixo do outro */
+  gap: 12px;              /* Espaçamento uniforme entre os botões */
+  margin-top: 20px;
+  width: 100%;
+}
+
+/* Força os botões a ocuparem toda a largura disponível */
+.contact-links .btn-project {
+  width: 100%;
+  justify-content: center; /* Centraliza o texto/ícone no botão */
+}
+
+/* ==========================================================================
+   5. MEDIA QUERIES (ORGANIZADOS POR TAMANHO DE TELA)
+   ========================================================================== */
+
+/* Dispositivos Muito Pequenos (até 480px) */
+@media (max-width: 480px) {
+  .project-links {
+    flex-direction: column;
+  }
+
+  .btn-project {
+    width: 100%;
+  }
+}
+
+/* Tablets e Desktops (a partir de 768px) */
+@media (min-width: 768px) {
+  .grid-container {
+    grid-template-columns: 1fr 1fr; /* Divisão 2/3(2fr 1fr) e 1/3 */
+    gap: 24px;
+  }
+
+  /* Classe utilitária para ocupar a largura total no grid */
+  .full-width {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Desktops Grandes (a partir de 1024px) */
+@media (min-width: 1024px) {
+  .grid-container {
+    gap: 32px;
+  }
+
+  .grid-item {
+    padding: 32px;
+  }
+}
