@@ -1,6 +1,3 @@
-/* ==========================================================================
-   1. RESET & VARIÁVEIS DE DESIGN
-   ========================================================================== */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -11,7 +8,7 @@
   --bg-page: #020617;          /* Fundo geral escuro e elegante */
   --bg-card: #0f172a;          /* Slate escuro sofisticado */
   --border-card: #1e293b;      /* Borda discreta */
-  --border-accent: #d97706;    /* Tom dourado/âmbar para destaque */
+  --border-accent: #10B981;    /* Tom dourado/âmbar para destaque */
   --text-main: #f8fafc;        /* Texto principal (alto contraste WCAG AAA) */
   --text-muted: #94a3b8;       /* Texto secundário */
   --shadow-color: rgba(0, 0, 0, 0.4);
