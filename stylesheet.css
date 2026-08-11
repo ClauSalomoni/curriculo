@@ -4,16 +4,83 @@
   padding: 0;
 }
 
+/* ==========================================================================
+   1. VARIÁVEIS DE CORES & MODO DE TEMA (MODO ESCURO - PADRÃO)
+   ========================================================================== */
 :root {
   --bg-page: #020617;          /* Fundo geral escuro e elegante */
   --bg-card: #0f172a;          /* Slate escuro sofisticado */
   --border-card: #1e293b;      /* Borda discreta */
-  --border-accent: #10B981;    /* Tom dourado/âmbar para destaque */
-  --text-main: #f8fafc;        /* Texto principal (alto contraste WCAG AAA) */
+  --border-card-hover: #334155;/* Borda no hover */
+  --border-accent: #10B981;    /* Verde Esmeralda para destaque */
+  --text-main: #f8fafc;        /* Texto principal (alto contraste) */
   --text-muted: #94a3b8;       /* Texto secundário */
+  --btn-primary-text: #020617; /* Texto do botão principal */
+  --btn-primary-hover: #059669;/* Verde hover */
   --shadow-color: rgba(0, 0, 0, 0.4);
+  --shadow-hover: rgba(0, 0, 0, 0.6);
+  --shadow-primary-btn: rgba(16, 185, 129, 0.3);
 }
 
+/* ==========================================================================
+   2. LÓGICA DO MODO CLARO EM CSS PURO (SELETOR HAS + CHECKBOX)
+   ========================================================================== */
+
+/* Quando o checkbox invisível #theme-toggle estiver marcado, aplica as cores claras */
+html:has(#theme-toggle:checked) {
+  --bg-page: #f8fafc;          /* Fundo geral claro */
+  --bg-card: #ffffff;          /* Card com fundo branco limpo */
+  --border-card: #e2e8f0;      /* Borda suave */
+  --border-card-hover: #cbd5e1;/* Borda no hover */
+  --border-accent: #059669;    /* Verde escuro adaptado para fundo claro */
+  --text-main: #0f172a;        /* Texto principal escuro */
+  --text-muted: #475569;       /* Texto secundário */
+  --btn-primary-text: #ffffff; /* Texto branco no botão primário */
+  --btn-primary-hover: #047857;/* Verde hover escuro */
+  --shadow-color: rgba(0, 0, 0, 0.06);
+  --shadow-hover: rgba(0, 0, 0, 0.12);
+  --shadow-primary-btn: rgba(5, 150, 105, 0.25);
+}
+
+/* Esconde o checkbox real */
+.theme-checkbox {
+  display: none;
+}
+
+/* Estilo do Botão de Alternância (Label) */
+.theme-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border-radius: 10px;
+  border: 1px solid var(--border-card);
+  background-color: var(--bg-card);
+  color: var(--text-main);
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-top: 0px;
+  transition: all 0.2s ease;
+  user-select: none;
+  box-shadow: 0 4px 12px var(--shadow-color);
+}
+
+.theme-btn:hover {
+  border-color: var(--border-accent);
+  transform: translateY(-2px);
+}
+
+/* Alternância dos textos/ícones dentro do botão */
+.theme-btn .icon-light { display: none; }
+.theme-btn .icon-dark { display: inline; }
+
+html:has(#theme-toggle:checked) .theme-btn .icon-dark { display: none; }
+html:has(#theme-toggle:checked) .theme-btn .icon-light { display: inline; }
+
+/* ==========================================================================
+   3. ESTILOS GERAIS DA PÁGINA (BODY)
+   ========================================================================== */
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   background-color: var(--bg-page);
@@ -24,10 +91,11 @@ body {
   justify-content: center;
   align-items: center;
   padding: 40px 16px;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* ==========================================================================
-   2. CABEÇALHO DA PÁGINA
+   4. CABEÇALHO DA PÁGINA
    ========================================================================== */
 .header-profile {
   display: flex;
@@ -37,6 +105,7 @@ body {
   margin-bottom: 32px;
   width: 100%;
 }
+
 /* Primeira Linha (Foto + Nome) */
 .header-top {
   display: flex;
@@ -51,6 +120,7 @@ body {
   font-weight: 700;
   letter-spacing: -0.02em;
   margin-bottom: 8px;
+  color: var(--text-main);
 }
 
 .header-profile p {
@@ -64,13 +134,14 @@ body {
   height: 90px;
   border-radius: 50%;        /* Deixa a imagem redonda */
   object-fit: cover;         /* Garante que a foto não fique esticada */
-  border: 2px solid var(--border-accent); /* Borda dourada do seu tema */
+  border: 2px solid var(--border-accent); /* Borda do seu tema */
   flex-shrink: 0;            /* Impede que a foto amasse em telas menores */
   box-shadow: 0 4px 12px var(--shadow-color);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 /* ==========================================================================
-   3. CONTAINER GRID & CARDS (MOBILE-FIRST BASE)
+   5. CONTAINER GRID & CARDS (MOBILE-FIRST BASE)
    ========================================================================== */
 .grid-container {
   display: grid;
@@ -87,7 +158,7 @@ body {
   border-radius: 12px;
   padding: 28px;
   box-shadow: 0 10px 25px -5px var(--shadow-color);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.3s ease;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -95,8 +166,8 @@ body {
 
 .grid-item:hover {
   transform: translateY(-3px);
-  box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.6);
-  border-color: #334155;
+  box-shadow: 0 20px 30px -10px var(--shadow-hover);
+  border-color: var(--border-card-hover);
 }
 
 .grid-item h2 {
@@ -123,7 +194,7 @@ body {
 }
 
 /* ==========================================================================
-   4. LINKS E BOTÕES DOS PROJETOS
+   6. LINKS E BOTÕES DOS PROJETOS
    ========================================================================== */
 .project-links {
   display: flex;
@@ -148,15 +219,15 @@ body {
 
 .btn-project.primary {
   background-color: var(--border-accent);
-  color: #020617;
+  color: var(--btn-primary-text);
   border: 1px solid var(--border-accent);
 }
 
 .btn-project.primary:hover,
 .btn-project.primary:focus-visible {
-  background-color: #f59e0b;
+  background-color: var(--btn-primary-hover);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3);
+  box-shadow: 0 4px 12px var(--shadow-primary-btn);
 }
 
 .btn-project.secondary {
@@ -169,7 +240,7 @@ body {
 .btn-project.secondary:focus-visible {
   background-color: var(--border-card);
   color: var(--border-accent);
-  border-color: #334155;
+  border-color: var(--border-card-hover);
   transform: translateY(-2px);
 }
 
@@ -178,7 +249,7 @@ body {
   outline-offset: 2px;
 }
 
-/* Container de links empilhados (uma linha por item, mesmo tamanho) */
+/* Container de links empilhados */
 .contact-links {
   display: flex;
   flex-direction: column; /* Força os itens a ficarem um abaixo do outro */
@@ -187,14 +258,13 @@ body {
   width: 100%;
 }
 
-/* Força os botões a ocuparem toda a largura disponível */
 .contact-links .btn-project {
   width: 100%;
   justify-content: center; /* Centraliza o texto/ícone no botão */
 }
 
 /* ==========================================================================
-   5. MEDIA QUERIES (ORGANIZADOS POR TAMANHO DE TELA)
+   7. MEDIA QUERIES (RESPONSIVIDADE)
    ========================================================================== */
 
 /* Dispositivos Muito Pequenos (até 480px) */
@@ -211,11 +281,10 @@ body {
 /* Tablets e Desktops (a partir de 768px) */
 @media (min-width: 768px) {
   .grid-container {
-    grid-template-columns: 1fr 1fr; /* Divisão 2/3(2fr 1fr) e 1/3 */
+    grid-template-columns: 1fr 1fr; /* Divisão 2 colunas */
     gap: 24px;
   }
 
-  /* Classe utilitária para ocupar a largura total no grid */
   .full-width {
     grid-column: 1 / -1;
   }
