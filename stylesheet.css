@@ -154,9 +154,9 @@ body {
 
 .btn-project.primary:hover,
 .btn-project.primary:focus-visible {
-  background-color: #f59e0b;
+  background-color: #10B981;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(217, 119, 6, 0.3);
+  box-shadow: 0 4px 12px rgba(15, 170, 118, 0.3);
 }
 
 .btn-project.secondary {
